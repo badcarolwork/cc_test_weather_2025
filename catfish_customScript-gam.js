@@ -63,8 +63,8 @@
     if(document.getElementById(ccscriptId)) {
       console.log(document.getElementById(ccscriptId))
     };
-    script.id = ccscriptId;
-    window.top.document.body.appendChild(script);
+    var parentDoc = window.parent.document;
+    parentDoc.body.appendChild(script);
 
   } catch (e) {
     console.warn("Injection failed due to cross-origin restrictions:", e);
