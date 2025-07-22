@@ -1,5 +1,5 @@
 const container = myFT.$("#mainContainer");
-    
+let iframeCount = 0; 
 myFT.on("load", start);
 
 function start() {
@@ -7,12 +7,28 @@ function start() {
     myFT.applyClickTag(clickTag, 1);
     addEvents();
 }
+function siteChecking(){
+    iframeCount = window.parent.document.querySelectorAll("iframe").length;
+    if (iframeCount === 1) {
+            window.parent.postMessage({
+            source: "iframe",
+            event: "requestCollapseFrame",
+        },"*" );
+    }else if(iframeCount >= 2){
+            window.parent.parent.postMessage({
+            source: "iframe",
+            event: "requestCollapseFrame",
+        },"*" );
+    }
+
+}
 
 function setCollapseFrame(){
-    window.parent.parent.postMessage({
-        source: "iframe",
-        event: "requestCollapseFrame",
-    },"*" );
+    // window.parent.parent.postMessage({
+    //     source: "iframe",
+    //     event: "requestCollapseFrame",
+    // },"*" );
+    siteChecking();
     videoControl("pause");
     gsap.to("#mainContainer", {y:450, duration: 0.5, ease: "power2.inOut" });
     gsap.to("#small_close_btn", { opacity: 0, duration: 0.3, ease: "power2.inOut" });
@@ -80,8 +96,6 @@ function onEnded() {
     });
 }
 
-myFT.on("expand", function () {});
-myFT.contract = function () {
-    console.log("myFT.contract() call blocked");
-};
+myFT.on("expand", function(){});
+myFT.contract = function(){};
     
