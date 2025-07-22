@@ -9,16 +9,16 @@ function start() {
 }
 function siteChecking(){
     iframeCount = window.parent.document.querySelectorAll("iframe").length;
-    if (iframeCount === 1) {
-            window.parent.postMessage({
-            source: "iframe",
-            event: "requestCollapseFrame",
-        },"*" );
-    }else if(iframeCount >= 2){
+    if (iframeCount >= 2) {
             window.parent.parent.postMessage({
             source: "iframe",
             event: "requestCollapseFrame",
         },"*" );
+    }else{
+        window.parent.postMessage({
+            source: "iframe",
+            event: "requestCollapseFrame",
+        },"*")
     }
 
 }
