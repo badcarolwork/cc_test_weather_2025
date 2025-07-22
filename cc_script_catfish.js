@@ -24,11 +24,11 @@ function siteChecking(){
 }
 
 function setCollapseFrame(){
-    // window.parent.parent.postMessage({
-    //     source: "iframe",
-    //     event: "requestCollapseFrame",
-    // },"*" );
-    siteChecking();
+    window.parent.postMessage({
+        source: "iframe",
+        event: "requestCollapseFrame",
+    },"*" );
+    // siteChecking();
     videoControl("pause");
     gsap.to("#mainContainer", {y:450, duration: 0.5, ease: "power2.inOut" });
     gsap.to("#small_close_btn", { opacity: 0, duration: 0.3, ease: "power2.inOut" });
